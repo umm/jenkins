@@ -40,7 +40,7 @@ namespace ContinuousIntegration {
         /// </summary>
         /// <param name="buildTarget">ビルドターゲット</param>
         public static void SendBuildRequest(BuildTarget buildTarget) {
-            ObservableUnityWebRequest.Post(string.Format(JENKINS_URL, EnvironmentSetting.Instance.Path.JenkinsJobName), GenerateParameters(buildTarget), GenerateRequestHeader()).Subscribe(
+            ObservableUnityWebRequest.Post(string.Format(JENKINS_URL, EnvironmentSetting.Instance.Jenkins.JobName), GenerateParameters(buildTarget), GenerateRequestHeader()).Subscribe(
                 (_) => {
                     Debug.Log("Build request sent to Jenkins.");
                 },
@@ -57,7 +57,7 @@ namespace ContinuousIntegration {
         /// <returns>Jenkins に渡すパラメータ</returns>
         private static Dictionary<string, string> GenerateParameters(BuildTarget buildTarget) {
             return new Dictionary<string, string>() {
-                { "requested_user", EnvironmentSetting.Instance.Path.SlackUserName },
+                { "requested_user", EnvironmentSetting.Instance.Jenkins.SlackUserName },
                 { "repository",     GetCurrentRepositoryName() },
                 { "branch",         GetCurrentBranchName() },
                 { "platform",       buildTarget.ToString() },
@@ -73,7 +73,7 @@ namespace ContinuousIntegration {
         /// <returns>Jenkins に渡すリクエストヘッダ</returns>
         private static Dictionary<string, string> GenerateRequestHeader() {
             return new Dictionary<string, string>() {
-                { "Authorization", "Basic " + System.Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(string.Format("{0}:{1}", EnvironmentSetting.Instance.Path.JenkinsUserId, EnvironmentSetting.Instance.Path.JenkinsPassword))) },
+                { "Authorization", "Basic " + System.Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes("{0}:{1}".Sprintf(EnvironmentSetting.Instance.Jenkins.UserId, EnvironmentSetting.Instance.Jenkins.Password))) },
             };
         }
 

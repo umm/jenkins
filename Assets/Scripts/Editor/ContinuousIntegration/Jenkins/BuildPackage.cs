@@ -30,19 +30,19 @@ namespace ContinuousIntegration {
             /// </summary>
             /// <returns>true: 発行可能 / false: 発行不可能</returns>
             private static bool IsValid() {
-                if (string.IsNullOrEmpty(EnvironmentSetting.Instance.Path.SlackUserName)) {
+                if (string.IsNullOrEmpty(EnvironmentSetting.Instance.Jenkins.SlackUserName)) {
                     Debug.LogError("Slack のユーザ名称を設定してください。");
                     return false;
                 }
-                if (string.IsNullOrEmpty(EnvironmentSetting.Instance.Path.JenkinsUserId)) {
+                if (string.IsNullOrEmpty(EnvironmentSetting.Instance.Jenkins.UserId)) {
                     Debug.LogError("Jenkins のユーザ ID を設定してください。");
                     return false;
                 }
-                if (string.IsNullOrEmpty(EnvironmentSetting.Instance.Path.JenkinsPassword)) {
+                if (string.IsNullOrEmpty(EnvironmentSetting.Instance.Jenkins.Password)) {
                     Debug.LogError("Jenkins のパスワードを設定してください。");
                     return false;
                 }
-                if (string.IsNullOrEmpty(EnvironmentSetting.Instance.Path.JenkinsJobName)) {
+                if (string.IsNullOrEmpty(EnvironmentSetting.Instance.Jenkins.JobName)) {
                     Debug.LogError("Jenkins のジョブ名称を設定してください。");
                     return false;
                 }
