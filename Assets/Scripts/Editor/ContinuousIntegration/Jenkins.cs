@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Text.RegularExpressions;
 using UniRx;
 using UnityEditor;
@@ -7,10 +8,16 @@ using UnityModule.Settings;
 
 namespace ContinuousIntegration {
     public partial class Jenkins {
+
         /// <summary>
-        /// Jenkins URL
+        /// ジョブ種別
         /// </summary>
-        private const string JENKINS_URL = "https://jenkins.kidsstar.co.jp/job/{0}/buildWithParameters";
+        public enum JobType {
+            // Player パッケージ
+            Player,
+            // AssetBundle
+            AssetBundle,
+        }
 
         /// <summary>
         /// git コマンドパス
@@ -36,11 +43,23 @@ namespace ContinuousIntegration {
         };
 
         /// <summary>
+        /// Jenkins のジョブ名称マップ
+        /// </summary>
+        private static readonly Dictionary<JobType, string> JOB_NAME_MAP = new Dictionary<JobType, string>() {
+            { JobType.Player     , EnvironmentSetting.Instance.Jenkins.JobNameForPlayer },
+            { JobType.AssetBundle, EnvironmentSetting.Instance.Jenkins.JobNameForAssetBunde },
+        };
+
+        /// <summary>
         /// Jenkins にビルドリクエストを発行する
         /// </summary>
+        /// <param name="jobType">ジョブ種別</param>
         /// <param name="buildTarget">ビルドターゲット</param>
-        public static void SendBuildRequest(BuildTarget buildTarget) {
-            ObservableUnityWebRequest.Post(string.Format(JENKINS_URL, EnvironmentSetting.Instance.Jenkins.JobName), GenerateParameters(buildTarget), GenerateRequestHeader()).Subscribe(
+        public static void SendBuildRequest(JobType jobType, BuildTarget buildTarget) {
+            if (!IsValid(jobType)) {
+                return;
+            }
+            ObservableUnityWebRequest.Post(Path.Combine(Path.Combine(EnvironmentSetting.Instance.Jenkins.BaseURL, JOB_NAME_MAP[jobType]), "buildWithParameters"), GenerateParameters(buildTarget), GenerateRequestHeader()).Subscribe(
                 (_) => {
                     Debug.Log("Build request sent to Jenkins.");
                 },
@@ -48,6 +67,36 @@ namespace ContinuousIntegration {
                     Debug.Log("Could not send build request to Jenkins: " + ex.Message);
                 }
             );
+        }
+
+        /// <summary>
+        /// Jenkins にビルドリクエストを発行可能かどうか
+        /// </summary>
+        /// <param name="jobType">ジョブ種別</param>
+        /// <returns>true: 発行可能 / false: 発行不可能</returns>
+        private static bool IsValid(JobType jobType) {
+            bool result = true;
+            if (string.IsNullOrEmpty(EnvironmentSetting.Instance.Jenkins.SlackUserName)) {
+                Debug.LogError("Slack のユーザ名称を設定してください。");
+                result = false;
+            }
+            if (string.IsNullOrEmpty(EnvironmentSetting.Instance.Jenkins.UserId)) {
+                Debug.LogError("Jenkins のユーザ ID を設定してください。");
+                result = false;
+            }
+            if (string.IsNullOrEmpty(EnvironmentSetting.Instance.Jenkins.Password)) {
+                Debug.LogError("Jenkins のパスワードを設定してください。");
+                result = false;
+            }
+            if (jobType == JobType.Player && string.IsNullOrEmpty(EnvironmentSetting.Instance.Jenkins.JobNameForPlayer)) {
+                Debug.LogError("Jenkins の Player ビルド用ジョブ名称を設定してください。");
+                result = false;
+            }
+            if (jobType == JobType.AssetBundle && string.IsNullOrEmpty(EnvironmentSetting.Instance.Jenkins.JobNameForAssetBunde)) {
+                Debug.LogError("Jenkins の AssetBundle ビルド用ジョブ名称を設定してください。");
+                result = false;
+            }
+            return result;
         }
 
         /// <summary>
@@ -73,7 +122,7 @@ namespace ContinuousIntegration {
         /// <returns>Jenkins に渡すリクエストヘッダ</returns>
         private static Dictionary<string, string> GenerateRequestHeader() {
             return new Dictionary<string, string>() {
-                { "Authorization", "Basic " + System.Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes("{0}:{1}".Sprintf(EnvironmentSetting.Instance.Jenkins.UserId, EnvironmentSetting.Instance.Jenkins.Password))) },
+                { "Authorization", "Basic " + System.Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(string.Format("{0}:{1}", EnvironmentSetting.Instance.Jenkins.UserId, EnvironmentSetting.Instance.Jenkins.Password))) },
             };
         }
 
