@@ -73,7 +73,7 @@ namespace ContinuousIntegration {
         /// <returns>Jenkins に渡すリクエストヘッダ</returns>
         private static Dictionary<string, string> GenerateRequestHeader() {
             return new Dictionary<string, string>() {
-                { "Authorization", "Basic " + System.Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes("{0}:{1}".Sprintf(EnvironmentSetting.Instance.Jenkins.UserId, EnvironmentSetting.Instance.Jenkins.Password))) },
+                { "Authorization", "Basic " + System.Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(string.Format("{0}:{1}", EnvironmentSetting.Instance.Jenkins.UserId, EnvironmentSetting.Instance.Jenkins.Password))) },
             };
         }
 
