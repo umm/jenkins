@@ -106,13 +106,13 @@ namespace ContinuousIntegration {
         /// <returns>Jenkins に渡すパラメータ</returns>
         private static Dictionary<string, string> GenerateParameters(BuildTarget buildTarget) {
             return new Dictionary<string, string>() {
-                { "requested_user", EnvironmentSetting.Instance.Jenkins.SlackUserName },
-                { "repository",     GetCurrentRepositoryName() },
-                { "branch",         GetCurrentBranchName() },
-                { "platform",       buildTarget.ToString() },
-                { "editor_version", Application.unityVersion },
-                { "env",            Debug.isDebugBuild ? "development" : "production" },
-                { "method",         METHODS[buildTarget] },
+                { "requested_user"   , EnvironmentSetting.Instance.Jenkins.SlackUserName },
+                { "repository"       , GetCurrentRepositoryName() },
+                { "branch"           , GetCurrentBranchName() },
+                { "platform"         , buildTarget.ToString() },
+                { "editor_version"   , Application.unityVersion },
+                { "development_biild", Debug.isDebugBuild ? "true" : "false" },
+                { "method"           , METHODS[buildTarget] },
             };
         }
 
