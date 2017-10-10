@@ -5,7 +5,7 @@ using UnityModule.Settings;
 namespace ContinuousIntegration {
     public partial class Jenkins {
         public class BuildPackage : EditorWindow {
-            [MenuItem("Project/Build/Package/iOS")]
+            [MenuItem("Project/Build/Player/iOS")]
             public static void iOS() {
                 if (!IsValid()) {
                     return;
@@ -15,7 +15,7 @@ namespace ContinuousIntegration {
                 SendBuildRequest(BuildTarget.iOS);
             }
 
-            [MenuItem("Project/Build/Package/Android")]
+            [MenuItem("Project/Build/Player/Android")]
             public static void Android() {
                 if (!IsValid()) {
                     return;
