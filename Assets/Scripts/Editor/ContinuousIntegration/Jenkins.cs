@@ -111,7 +111,7 @@ namespace ContinuousIntegration {
                 { "branch"           , GetCurrentBranchName() },
                 { "platform"         , buildTarget.ToString() },
                 { "editor_version"   , Application.unityVersion },
-                { "development_biild", Debug.isDebugBuild ? "true" : "false" },
+                { "development_build", EditorUserBuildSettings.development.ToString() },
                 { "method"           , METHODS[buildTarget] },
             };
         }
