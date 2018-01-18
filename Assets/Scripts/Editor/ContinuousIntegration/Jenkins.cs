@@ -35,14 +35,6 @@ namespace ContinuousIntegration {
         private const string ARGUMENTS_CURRENT_BRANCH_NAME = "rev-parse --abbrev-ref HEAD";
 
         /// <summary>
-        /// Jenkins に渡す method パラメータ
-        /// </summary>
-        private static readonly Dictionary<BuildTarget, string> METHODS = new Dictionary<BuildTarget, string>() {
-            { BuildTarget.iOS,     "SimpleBuild.BuildPlayer.Run_iOS" },
-            { BuildTarget.Android, "SimpleBuild.BuildPlayer.Run_Android" },
-        };
-
-        /// <summary>
         /// Jenkins のジョブ名称マップ
         /// </summary>
         private static readonly Dictionary<JobType, string> JOB_NAME_MAP = new Dictionary<JobType, string>();
@@ -113,7 +105,6 @@ namespace ContinuousIntegration {
                 { "platform"         , buildTarget.ToString() },
                 { "editor_version"   , Application.unityVersion },
                 { "development_build", EditorUserBuildSettings.development.ToString() },
-                { "method"           , METHODS[buildTarget] },
             };
         }
 
