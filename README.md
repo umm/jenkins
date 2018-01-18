@@ -23,6 +23,9 @@ $ npm install github:umm-projects/jenkins
     * Jenkins User Id
     * Jenkins Password
     * Jenkins Job Name
+    * BaseURL
+        * ジョブ名の手前までの URL を指定してください。
+        * `https://jenkins.example.com/job/` など。
 2. UnityEditor のメニューから、ビルドターゲットを選択する
     * iOS の場合は、`Project > Build > Package > iOS` を選択する
     * Android の場合は、`Project > Build > Package > Android` を選択する
