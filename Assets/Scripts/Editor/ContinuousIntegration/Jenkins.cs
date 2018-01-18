@@ -45,7 +45,7 @@ namespace ContinuousIntegration {
         /// <summary>
         /// Jenkins のジョブ名称マップ
         /// </summary>
-        private static Dictionary<JobType, string> JOB_NAME_MAP;
+        private static readonly Dictionary<JobType, string> JOB_NAME_MAP = new Dictionary<JobType, string>();
 
         /// <summary>
         /// Jenkins にビルドリクエストを発行する
@@ -94,10 +94,8 @@ namespace ContinuousIntegration {
                 result = false;
             }
             if (result) {
-                JOB_NAME_MAP = new Dictionary<JobType, string>() {
-                    { JobType.Player     , EnvironmentSetting.Instance.Jenkins.JobNameForPlayer },
-                    { JobType.AssetBundle, EnvironmentSetting.Instance.Jenkins.JobNameForAssetBunde },
-                };
+                JOB_NAME_MAP[JobType.Player] = EnvironmentSetting.Instance.Jenkins.JobNameForPlayer;
+                JOB_NAME_MAP[JobType.AssetBundle] = EnvironmentSetting.Instance.Jenkins.JobNameForAssetBunde;
             }
             return result;
         }
