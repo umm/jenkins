@@ -27,7 +27,7 @@
   "dependencies": {
     "@umm/setting_core": "umm-projects/setting_core#^2.0.0",
     "@umm/scripts": "umm-projects/scripts#^1.0.0",
-    "@umm/unirx": "umm-projects/unirx#^1.0.0",
+    "@umm/unirx": "umm-projects/unirx#^2.0.0",
     "@umm/unirx_observableunitywebrequest": "umm-projects/unirx_observableunitywebrequest#^1.0.0"
   },
   "devDependencies": {}
