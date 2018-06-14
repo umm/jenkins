@@ -1,5 +1,4 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace UnityModule.Settings
 {
@@ -24,7 +23,7 @@ namespace UnityModule.Settings
         public string JobNameForAssetBunde => this.jobNameForAssetBunde;
 
 #if UNITY_EDITOR
-        [MenuItem("Assets/Create/Settings/Jenkins Setting")]
+        [UnityEditor.MenuItem("Assets/Create/Settings/Jenkins Setting")]
         public static void CreateSettingAsset()
         {
             CreateAsset(true);
