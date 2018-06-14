@@ -1,0 +1,12 @@
+{
+    "name": "umm@jenkins",
+    "references": [
+        "umm@setting_core",
+        "umm@unirx",
+        "umm@unirx_observableunitywebrequest"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}
