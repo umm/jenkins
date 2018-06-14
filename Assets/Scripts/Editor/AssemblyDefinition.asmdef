@@ -1,0 +1,15 @@
+{
+    "name": "umm@jenkins-Editor",
+    "references": [
+        "umm@jenkins",
+        "umm@unirx",
+        "umm@setting_core",
+        "umm@unirx_observableunitywebrequest"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}
