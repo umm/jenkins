@@ -2,7 +2,7 @@
 
 namespace UnityModule.Settings
 {
-    public class JenkinsSetting : Setting<JenkinsSetting>
+    public class JenkinsSetting : Setting<JenkinsSetting>, IEnvironmentSetting
     {
         [SerializeField] private string slackUserName;
         public string SlackUserName => this.slackUserName;
@@ -26,7 +26,7 @@ namespace UnityModule.Settings
         [UnityEditor.MenuItem("Assets/Create/Settings/Jenkins Setting")]
         public static void CreateSettingAsset()
         {
-            CreateAsset(true);
+            CreateAsset();
         }
 #endif
     }
