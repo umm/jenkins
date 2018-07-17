@@ -13,7 +13,7 @@
 # Install
 
 ```shell
-$ npm install github:umm-projects/jenkins
+$ npm install github:umm/jenkins
 ```
 
 # Usage

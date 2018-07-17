@@ -2,9 +2,9 @@
   "name": "@umm/jenkins",
   "version": "1.2.3",
   "description": "Build request send to Jenkins",
-  "homepage": "https://github.com/umm-projects/jenkins",
+  "homepage": "https://github.com/umm/jenkins",
   "bugs": {
-    "url": "https://github.com/umm-projects/jenkins/issues"
+    "url": "https://github.com/umm/jenkins/issues"
   },
   "scripts": {
     "umm:init": "umm-init",
@@ -18,17 +18,17 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:umm-projects/jenkins"
+    "url": "git@github.com:umm/jenkins"
   },
   "files": [
     "Assets",
     "scripts"
   ],
   "dependencies": {
-    "@umm/setting_core": "umm-projects/setting_core#^2.0.0",
-    "@umm/scripts": "umm-projects/scripts#^1.0.0",
-    "@umm/unirx": "umm-projects/unirx#^2.0.0",
-    "@umm/unirx_observableunitywebrequest": "umm-projects/unirx_observableunitywebrequest#^1.0.0"
+    "@umm/setting_core": "umm/setting_core#^2.0.0",
+    "@umm/scripts": "umm/scripts#^1.0.0",
+    "@umm/unirx": "umm/unirx#^2.0.0",
+    "@umm/unirx_observableunitywebrequest": "umm/unirx_observableunitywebrequest#^1.0.0"
   },
   "devDependencies": {}
 }
